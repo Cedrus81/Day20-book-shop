@@ -2,7 +2,7 @@
 
 
 function init() {
-    gBooks = loadFromStorage(STORAGE_KEY)
+    gBooks = loadFromStorage(STORAGE_KEY) || createBooks()
     _initByQueryStringParams()
     renderPagination()
     renderBooks()

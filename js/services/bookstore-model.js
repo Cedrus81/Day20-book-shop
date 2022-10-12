@@ -8,6 +8,12 @@ var gFilterBy = {
     text: '',
 }
 
+function createBooks() {
+    for (let i = 0; i < 15; i++) {
+        addBook()
+    }
+}
+
 function getBooks() {
     return gBooks.filter(book => _useFilter(book))
 }
