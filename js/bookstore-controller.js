@@ -2,6 +2,7 @@
 
 
 function init() {
+    debugger
     gBooks = loadFromStorage(STORAGE_KEY) || createBooks()
     _initByQueryStringParams()
     renderPagination()

@@ -1,7 +1,7 @@
 const PAGE_SIZE = 5
 var gLayout = 'table'
 var gPageIndex = 0
-var gBooks
+var gBooks = []
 var gFilterBy = {
     maxPrice: 100,
     minRating: 0,
@@ -9,7 +9,7 @@ var gFilterBy = {
 }
 
 function createBooks() {
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 18; i++) {
         addBook()
     }
 }
