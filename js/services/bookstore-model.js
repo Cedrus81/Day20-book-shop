@@ -12,6 +12,7 @@ function createBooks() {
     for (let i = 0; i < 18; i++) {
         addBook()
     }
+    return gBooks
 }
 
 function getBooks() {
@@ -36,6 +37,7 @@ function addBook(title, price, rating) {
     }
     gBooks.unshift(newBook)
     saveToStorage(STORAGE_KEY, gBooks)
+
 }
 
 function updateBook(bookId, price, title) {
