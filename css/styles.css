@@ -1,0 +1,86 @@
+@import "slider.css";
+@import "cards.css";
+@import "modal.css";
+@import "pagination.css";
+
+body{
+    width: 99vw;
+    height: 125vh;
+    background: linear-gradient(109.6deg, rgb(17, 151, 147) 11.2%, rgb(154, 214, 212) 55.4%, rgb(255, 233, 171) 100.2%);  
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    -webkit-box-shadow: 5px 5px 24px 5px rgba(0,0,0,0.73); 
+    box-shadow: 5px 5px 24px 5px rgba(0,0,0,0.73);
+}
+
+header{
+    display: flex;
+    width: 60vw;
+    flex-wrap: wrap;
+    user-select: none;
+}
+header > * {
+    margin: 1em;
+}
+header h1{
+    width: 100%;
+    text-align: center;
+    text-decoration: overline double;
+}
+table{
+    padding: 1em;
+    width: 70vw;
+    background-color: rgb(185, 238, 238);
+    border-radius: 10px;
+}
+
+thead{
+    font-size: large;
+    background-color: brown;
+    color: aliceblue;
+    user-select: none;
+}
+td{
+    padding: 0.7em;
+}
+
+tbody tr:nth-child(odd){
+    background-color: #ccc;
+    
+}
+
+.action {
+    padding: 0.5em;
+    border-radius: 5px;
+    border: none;
+}
+.read-button{
+    background-color: #cbf078;
+}
+
+.update-button{
+    background-color: #f1b963;
+}
+
+.delete-button{
+    background-color: #e46161;
+}
+
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+.sorting{
+    background-color: #fad16a;
+    transition: 0.2s;
+}
+.sorting:active{
+    background-color: #f8c542;
+}
+.hidden{
+    display: none;
+}

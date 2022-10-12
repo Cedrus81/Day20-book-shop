@@ -1,0 +1,94 @@
+.modal{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 45vw;
+    transition: 1s;
+    position: fixed;
+    bottom: -150%;
+    right: 0;
+    background-color: black;
+    color: aliceblue;
+    border-top-left-radius: 10px;
+    overflow: scroll;
+}
+
+.modal.open{
+    bottom:0;
+}
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal h4{
+    align-self: center;
+    margin: 0;
+}
+
+.modal-header img{
+    border-top-left-radius: 10px;
+    max-height: 125px;
+    max-width: 125px;
+}
+
+.modal-header h3{
+    margin-left: 3em;
+    align-self: center;
+}
+
+
+.modal-header-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.close-modal{
+    color: azure;
+    font-size: 2em;
+    background-color: cadetblue;
+    height: max-content;
+    border: none;
+}
+
+.rating{
+    display: flex;
+    justify-content: space-between;
+    width: 5em;
+    background-color: cornflowerblue;
+    border-radius: 5px;
+    border: 2px solid azure;
+}
+
+.rating > *{
+    padding: 0.5vh 0.5vw;
+}
+
+.rating > button{
+    background-color: rgb(29, 101, 235);
+    color: azure;
+    border: none;
+}
+    
+    
+    button.plus{
+        padding-left: 0.5em;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+    button.minus{
+    font-size: large;
+    padding-right: 0.5em;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+form{
+    align-self: center;
+}
+
+label input{
+    margin-bottom: 1em;
+}

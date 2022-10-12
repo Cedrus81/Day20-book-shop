@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Bookstore</title>
+</head>
+
+<body onload="init()">
+    <header>
+        <h1>La libreria de Denisse</h1>
+        <button class="action read-button" onclick="_onAddBook()">Add new book</button>
+        <label> Max. price:
+            <input class="price-range" type="range" min="1" max="100" value="100"
+                onchange="this.title = this.value; _onFilterByPrice(this.value)">
+        </label>
+        <label> Min. Rating:
+            <input class="rating-range" type="range" min="0" max="10" value="0"
+                onchange="this.title = this.value; _onFilterByRating(this.value)">
+        </label>
+        <input class="text-filter" type="text" oninput="_onSetFilterByTxt(this.value)" placeholder="Find Book..." />
+        <label>Switch display:
+            <label class="switch">
+                <input type="checkbox" onclick="_onSwitchDisplay(this.checked)">
+                <span class="slider"></span>
+            </label>
+        </label>
+
+        <div class="pagination"></div>
+    </header>
+
+    <div class="cards hidden"></div>
+
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th class="sorter" data-sort="title" onclick="_onSortBy(this)">Title</th>
+                <th class="sorter" data-sort="price" onclick="_onSortBy(this)">Price</th>
+                <th colspan="3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <div class="modal">
+        <h2>Loading book info...</h2>
+    </div>
+
+
+    <script src="js/bookstore-controller.js"></script>
+    <script src="js/services/bookstore-model.js"></script>
+    <script src="js/services/bookstore-storage.js"></script>
+    <script src="js/services/bookstore-util.js"></script>
+    <script src="js/services/bookstore-render.js"></script>
+
+
+</body>
+
+</html>

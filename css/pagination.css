@@ -1,0 +1,36 @@
+.pagination {
+    display: inline-block;
+  }
+  
+  .pagination a, .pagination span{
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    background-color: azure;
+  }
+  
+  .pagination a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .pagination a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .disabled{
+    filter: opacity(50%);
+    cursor: default;
+  }
+
+  
+  .pagination span.active {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+  }
+  
+  .pagination span:hover:not(.active) {background-color: #ddd;}

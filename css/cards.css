@@ -1,0 +1,35 @@
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    height: 50vh;
+    width: 80vw;
+    justify-content: space-evenly;
+}
+
+.card{
+    margin: 1em;
+    display: flex;
+    width: 15%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #142d4c;
+    color: aliceblue;
+    border-radius: 15px;
+}
+
+.card img{
+    border-radius: 45%;
+    max-width: 125px;
+    max-height: 125px;
+}
+
+.card h3, .card h4{
+    margin: 0 auto;
+    padding: 0.5vw;
+}
+
+.card button{
+    width: 90%;
+    margin-bottom: 0.5em;
+}
