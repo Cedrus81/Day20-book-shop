@@ -7,29 +7,40 @@ function renderBooksTable(books) {
                 <td>${book.id}</td>
                 <td>${book.title}</td>
                 <td>${book.price}</td>
-                <td><button class="action read-button" onclick="_onRead('${book.id}')">Read</button></td>
-                <td><button class="action update-button" onclick="_onUpdate('${book.id}')">Update</button></td>
-                <td><button class="action delete-button" onclick="_onRemoveBook('${book.id}')">Delete</button></td>
+                <td>${_getReadBtn(book.id)}</td>
+                <td>${_getUpdateBtn(book.id)}</td>
+                <td>${_getDeleteBtn(book.id)}</td>
             </tr>`
     })
     document.querySelector('tbody').innerHTML = strHTML
 }
-
 function renderBooksCards(books) {
     let strHTML = ''
     let page = _getPage(books)
     page.forEach(book => {
         strHTML += `
         <div class="card">
-            <img src="${book.image}" alt="https://source.unsplash.com/collection/1018825/125x125/?sig=1" crossorigin>
-            <h3>${book.title}</h3>
-            <h4>Price in store: ${book.price}$</h4>
-            <button class="action read-button" onclick="_onRead('${book.id}')">Read</button>
-            <button class="action update-button" onclick="_onUpdate('${book.id}')">Update</button>
-            <button class="action delete-button" onclick="_onRemoveBook('${book.id}')">Delete</button>
+        <img src="${book.image}" alt="https://source.unsplash.com/collection/1018825/125x125/?sig=1" crossorigin>
+        <h3>${book.title}</h3>
+        <h4>Price in store: ${book.price}$</h4>
+        ${_getReadBtn(book.id)}
+        ${_getUpdateBtn(book.id)}
+        ${_getDeleteBtn(book.id)}
         </div>`
     })
     document.querySelector('.cards').innerHTML = strHTML
+}
+
+function _getReadBtn(bookId) {
+    return `<button class="action read-button" onclick="_onRead('${bookId}')">Read</button>`
+}
+
+function _getUpdateBtn(bookId) {
+    return `<button class="action update-button" onclick="_onUpdate('${bookId}')">Update</button>`
+}
+
+function _getDeleteBtn(bookId) {
+    return `<button class="action delete-button" onclick="_onRemoveBook('${bookId}')">Delete</button>`
 }
 
 function readBook(bookId) {

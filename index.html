@@ -11,8 +11,8 @@
 
 <body onload="init()">
     <header>
-        <h1>La libreria de Denisse</h1>
-        <button class="action read-button" onclick="_onAddBook()">Add new book</button>
+        <h1 data-trans="title">La libreria de Denisse</h1>
+        <button data-trans="btn-add" class="action read-button" onclick="_onAddBook()">Add new book</button>
         <label> Max. price:
             <input class="price-range" type="range" min="1" max="100" value="100"
                 onchange="this.title = this.value; _onFilterByPrice(this.value)">
@@ -38,9 +38,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th class="sorter" data-sort="title" onclick="_onSortBy(this)">Title</th>
-                <th class="sorter" data-sort="price" onclick="_onSortBy(this)">Price</th>
-                <th colspan="3">Actions</th>
+                <th class="sorter" data-trans="th-title" data-sort="title" onclick="_onSortBy(this)">Title</th>
+                <th class="sorter" data-trans="th-price" data-sort="price" onclick="_onSortBy(this)">Price</th>
+                <th data-trans="th-options" colspan="3">Options</th>
             </tr>
         </thead>
         <tbody>
@@ -49,14 +49,14 @@
     </table>
 
     <div class="modal">
-        <h2>Loading book info...</h2>
+        <h2 data-trans="loading">Loading book info...</h2>
     </div>
 
 
     <script src="js/bookstore-controller.js"></script>
     <script src="js/services/bookstore-model.js"></script>
     <script src="js/services/bookstore-storage.js"></script>
-    <script src="js/services/bookstore-util.js"></script>
+    <script src="js/services/util.js"></script>
     <script src="js/services/bookstore-render.js"></script>
 
 
