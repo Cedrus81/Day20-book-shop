@@ -11,24 +11,27 @@
 
 <body onload="init()">
     <header>
-        <h1 data-trans="title">La libreria de Denisse</h1>
-        <button data-trans="btn-add" class="action read-button" onclick="_onAddBook()">Add new book</button>
-        <label> Max. price:
-            <input class="price-range" type="range" min="1" max="100" value="100"
-                onchange="this.title = this.value; _onFilterByPrice(this.value)">
-        </label>
-        <label> Min. Rating:
-            <input class="rating-range" type="range" min="0" max="10" value="0"
-                onchange="this.title = this.value; _onFilterByRating(this.value)">
-        </label>
-        <input class="text-filter" type="text" oninput="_onSetFilterByTxt(this.value)" placeholder="Find Book..." />
-        <label>Switch display:
-            <label class="switch">
-                <input type="checkbox" onclick="_onSwitchDisplay(this.checked)">
-                <span class="slider"></span>
-            </label>
-        </label>
+        <h1 data-trans="title"></h1>
+        <button data-trans="btn-add" class="action read-button" onclick="_onAddBook()"></button>
+        <label data-trans="menu-price" for="price-range"></label>
+        <input id="price-range" class="price-range" type="range" min="1" max="100" value="100"
+            onchange="this.title = this.value; _onFilterByPrice(this.value)">
 
+        <label data-trans="menu-rating" for="rating-range"></label>
+        <input id="rating-range" class="rating-range" type="range" min="0" max="10" value="0"
+            onchange="this.title = this.value; _onFilterByRating(this.value)">
+
+        <input data-trans="menu-text-filter-placeholder" class="text-filter" type="text"
+            oninput="_onSetFilterByTxt(this.value)" placeholder="" />
+        <label class="switch"> <span data-trans="menu-display"></span>
+            <input type="checkbox" onclick="_onSwitchDisplay(this.checked)">
+            <span class="slider"></span>
+        </label>
+        <select onchange="onSetLang(this.value)">
+            <option value="eng">🇬🇧 English</option>
+            <option value="esp">🇪🇸 Español</option>
+            <option value="he">🇮🇱 עברית</option>
+        </select>
         <div class="pagination"></div>
     </header>
 
@@ -37,10 +40,10 @@
     <table cellspacing="0">
         <thead>
             <tr>
-                <th>Id</th>
-                <th class="sorter" data-trans="th-title" data-sort="title" onclick="_onSortBy(this)">Title</th>
-                <th class="sorter" data-trans="th-price" data-sort="price" onclick="_onSortBy(this)">Price</th>
-                <th data-trans="th-options" colspan="3">Options</th>
+                <th data-trans="th-id"></th>
+                <th class="sorter" data-trans="th-title" data-sort="title" onclick="_onSortBy(this)"></th>
+                <th class="sorter" data-trans="th-price" data-sort="price" onclick="_onSortBy(this)"></th>
+                <th data-trans="th-options" colspan="3"></th>
             </tr>
         </thead>
         <tbody>
@@ -49,15 +52,16 @@
     </table>
 
     <div class="modal">
-        <h2 data-trans="loading">Loading book info...</h2>
+        <h2 data-trans="loading"></h2>
     </div>
 
 
-    <script src="js/bookstore-controller.js"></script>
     <script src="js/services/bookstore-model.js"></script>
     <script src="js/services/bookstore-storage.js"></script>
     <script src="js/services/util.js"></script>
     <script src="js/services/bookstore-render.js"></script>
+    <script src="js/services/i18n.js"></script>
+    <script src="js/bookstore-controller.js"></script>
 
 
 </body>

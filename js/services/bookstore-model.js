@@ -134,3 +134,4 @@ function sortBooks(method) {
     saveToStorage(STORAGE_KEY, gBooks)
     return method
 }
+

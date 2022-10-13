@@ -5,6 +5,7 @@ function init() {
     gBooks = loadFromStorage(STORAGE_KEY) || createBooks()
     _initByQueryStringParams()
     renderPagination()
+    doTranslate()
     renderBooks()
 }
 
@@ -109,5 +110,12 @@ function onNavigate(elBtn) {
     setPage(newValue)
     renderPagination()
     activateButton(newValue)
+    renderBooks()
+}
+
+function onSetLang(lang) {
+    setLang(lang)
+    setDirection(lang)
+    doTranslate()
     renderBooks()
 }

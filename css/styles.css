@@ -14,7 +14,9 @@ body{
     -webkit-box-shadow: 5px 5px 24px 5px rgba(0,0,0,0.73); 
     box-shadow: 5px 5px 24px 5px rgba(0,0,0,0.73);
 }
-
+body.rtl{
+    direction: rtl;
+}
 header{
     display: flex;
     width: 60vw;

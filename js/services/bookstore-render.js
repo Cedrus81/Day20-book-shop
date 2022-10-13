@@ -14,6 +14,7 @@ function renderBooksTable(books) {
     })
     document.querySelector('tbody').innerHTML = strHTML
 }
+
 function renderBooksCards(books) {
     let strHTML = ''
     let page = _getPage(books)
@@ -71,21 +72,18 @@ function _setModalRead(book, image, elModal) {
 
     elModal.innerHTML = `
     <div class="modal-header">
-    <img onerror="" src="${image}" alt="">
+    <img src="${image}" alt="">
     <h3>${book.title}</h3>
     <div class="modal-header-buttons">
-    <button class="close-modal" onclick="_onCloseModal()">Close</button>
+    <button data-trans="btn-close-modal" class="close-modal" onclick="_onCloseModal()"></button>
     ${renderRating(book)}
     </div>
     </div>
-    <h4>Description:</h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-    Quisquam illo ea quaerat maxime molestiae numquam impedit delectus
-    doloribus aliquid dolorum aut blanditiis, iste hic architecto, libero incidunt.
-    Laborum, quod natus.
-    <br><br>
-    Price in store: ${book.price}$ (Special offer discount).
+    <h4 data-trans="read-description"></h4>
+    <p data-trans="lorem">
     </p>
+    <br>
+    Price in store: ${book.price}$ (Special offer discount).
     `
 }
 
