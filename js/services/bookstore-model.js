@@ -54,7 +54,7 @@ function updateRate(book, change) {
 }
 
 function setQueryStringParams(bookId) {
-    const queryString = `?minRating=${gFilterBy.minRating}&maxPrice=${gFilterBy.maxPrice}${gFilterBy.text ? `&text=${gFilterBy.text}` : ''}${bookId ? `&read=${bookId}` : ''}&layout=${loadFromStorage(LAYOUT_KEY)}`
+    const queryString = `?minRating=${gFilterBy.minRating}&maxPrice=${gFilterBy.maxPrice}${gFilterBy.text ? `&text=${gFilterBy.text}` : ''}${bookId ? `&read=${bookId}` : ''}&layout=${loadFromStorage(LAYOUT_KEY)}&lang=${gCurrLang}`
 
     const newUrl = location.protocol + '//' + location.host + location.pathname + queryString
     history.pushState({ path: newUrl }, '', newUrl)

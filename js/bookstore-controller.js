@@ -88,6 +88,10 @@ function _initByQueryStringParams() {
     renderFiltersByQueryStringParams(filterBy)
     gFilterBy = filterBy
     _onRead(queryStringParams.get('read'))
+
+    let lang = queryStringParams.get('lang')
+    onSetLang(lang)
+    renderLangSelectByQueryString(lang)
 }
 
 function _onSwitchDisplay(isCards) {
@@ -114,8 +118,10 @@ function onNavigate(elBtn) {
 }
 
 function onSetLang(lang) {
+    if (!lang) return
     setLang(lang)
     setDirection(lang)
     doTranslate()
     renderBooks()
+    setQueryStringParams()
 }

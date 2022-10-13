@@ -50,6 +50,7 @@ function readBook(bookId) {
     moveModal(elModal)
     fetch(book.image)
         .then(response => {
+            doTranslate()
             _setModalRead(book, response.url, elModal)
             setQueryStringParams(bookId)
         })
@@ -66,6 +67,10 @@ function renderLayoutSwitchByQueryStringParams(queryStringParams) {
     if (queryStringParams.get('layout') === 'table') displaySwitch.checked = false
     else displaySwitch.checked = true
     setDisplay(displaySwitch.checked)
+}
+
+function renderLangSelectByQueryString(lang) {
+    document.querySelector('.lang-select').value = lang
 }
 
 function _setModalRead(book, image, elModal) {
