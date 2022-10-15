@@ -1,18 +1,19 @@
 'use strict'
 
-
 function init() {
     gBooks = loadFromStorage(STORAGE_KEY) || createBooks()
-    _initByQueryStringParams()
+    // _initByQueryStringParams()
     renderPagination()
-    doTranslate()
     renderBooks()
 }
 
-function _onAddBook() {
-    let elModal = document.querySelector('.modal')
-    moveModal(elModal)
-    setModalAdd(elModal)
+function onAddBook() {
+    var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
+        keyboard: false
+    })
+    setModalAdd(elModal._element)
+    elModal.show()
+    doTranslate()
 }
 
 function _onSubmitBook(event) {
@@ -22,29 +23,40 @@ function _onSubmitBook(event) {
     const rating = document.querySelector('form input[name=rating]').value
     addBook(title, +price, +rating)
     renderBooks()
-    closeModal()
 }
 
 function _onRead(bookId) {
     if (!bookId) return
-    readBook(bookId)   // on services/views.js
+    var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
+        keyboard: false
+    })
+    readBook(bookId, elModal._element)
+    elModal.show()
+    doTranslate()
 }
 
-function _onCloseModal() {
-    closeModal()  // on services/views.js
+function onCloseModal() {
+    event.stopPropagation()
+    var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
+        keyboard: false
+    })
+    elModal.hide()
     setQueryStringParams()
 }
 
 function onRate(bookId, change) {
     let book = getBookById(bookId)
     updateRate(book, change)
-    document.querySelector('.rating').innerHTML = renderRating(book)
+    document.querySelector('.input-group-text').innerHTML = book.rating
 }
 
 function _onUpdate(bookId) {
-    let elModal = document.querySelector('.modal')
-    moveModal(elModal)
-    setModalUpdate(elModal, bookId)
+    var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
+        keyboard: false
+    })
+    setModalUpdate(elModal._element, bookId)
+    elModal.show()
+    doTranslate()
 }
 
 function _onSubmitUpdate(event, bookId) {
@@ -52,7 +64,6 @@ function _onSubmitUpdate(event, bookId) {
     const title = document.querySelector('form input[name=title]').value
     const price = +document.querySelector('form input[name=price]').value
     updateBook(bookId, price, title)
-    closeModal()
     renderBooks()
 }
 
@@ -63,19 +74,16 @@ function _onRemoveBook(bookId) {
 
 function _onFilterByPrice(maxPrice) {
     setPriceFilter(+maxPrice)
-    getBooks()
     renderBooks()
 }
 
 function _onFilterByRating(minRating) {
     setRatingFilter(+minRating)
-    getBooks()
     renderBooks()
 }
 
 function _onSetFilterByTxt(text) {
     setTextFilter(text)
-    getBooks()
     renderBooks()
 }
 
@@ -121,7 +129,8 @@ function onSetLang(lang) {
     if (!lang) return
     setLang(lang)
     setDirection(lang)
-    doTranslate()
     renderBooks()
     setQueryStringParams()
+    doTranslate()
 }
+

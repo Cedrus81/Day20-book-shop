@@ -19,44 +19,33 @@ body.rtl{
 }
 header{
     display: flex;
-    width: 60vw;
-    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: column;
     user-select: none;
+    justify-content: center;
+    align-items: center;
 }
 header > * {
     margin: 1em;
 }
-header h1{
-    width: 100%;
-    text-align: center;
-    text-decoration: overline double;
-}
-table{
-    padding: 1em;
-    width: 70vw;
-    background-color: rgb(185, 238, 238);
-    border-radius: 10px;
-}
 
-thead{
-    font-size: large;
-    background-color: brown;
-    color: aliceblue;
-    user-select: none;
+.navbar{
+    max-width: 60%;
 }
-td{
-    padding: 0.7em;
-}
-
-tbody tr:nth-child(odd){
-    background-color: #ccc;
-    
-}
-
 .action {
     padding: 0.5em;
     border-radius: 5px;
     border: none;
+}
+
+.actions-tab{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.actions-tab > *{
+    margin: 0.2em;
 }
 .read-button{
     background-color: #cbf078;

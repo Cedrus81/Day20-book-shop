@@ -30,7 +30,7 @@ function addBook(title, price, rating) {
     let imageNum = getRandomIntFrom1(115)  // size of the unsplash library
     let newBook = {
         id: makeId(),
-        image: `https://source.unsplash.com/collection/1018825/125x125/?sig=${imageNum}`,
+        image: `https://source.unsplash.com/collection/1018825/?sig=${imageNum}`,
         price: price || getRandomIntFrom1(),
         rating: rating || 0,
         title: title || GetRandomBookTitle(),
@@ -45,7 +45,6 @@ function updateBook(bookId, price, title) {
     book.price = price
     book.title = title
     saveToStorage(STORAGE_KEY, gBooks)
-    renderBooks()
 }
 
 function updateRate(book, change) {
@@ -92,10 +91,11 @@ function _getPage(books) {
 
 function renderBooks() {
     setQueryStringParams()
-    let isCards = document.querySelector('.switch input').checked
+    let isCards = getQueryStringParams().get('layout') === 'cards' ? true : false
     let books = getBooks()
     if (!isCards) renderBooksTable(books)
     else renderBooksCards(books)
+    doTranslate()
 }
 
 function setFilterByQueryStringParams(queryStringParams) {

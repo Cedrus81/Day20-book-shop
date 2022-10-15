@@ -7,9 +7,7 @@ function renderBooksTable(books) {
                 <td>${book.id}</td>
                 <td>${book.title}</td>
                 <td>${book.price}</td>
-                <td>${_getReadBtn(book.id)}</td>
-                <td>${_getUpdateBtn(book.id)}</td>
-                <td>${_getDeleteBtn(book.id)}</td>
+                <td colspan ="3"><div class="actions-tab">${_getReadBtn(book.id)}${_getUpdateBtn(book.id)}${_getDeleteBtn(book.id)}</div></td>
             </tr>`
     })
     document.querySelector('tbody').innerHTML = strHTML
@@ -19,40 +17,45 @@ function renderBooksCards(books) {
     let strHTML = ''
     let page = _getPage(books)
     page.forEach(book => {
-        strHTML += `
-        <div class="card">
-        <img src="${book.image}" alt="https://source.unsplash.com/collection/1018825/125x125/?sig=1" crossorigin>
-        <h3>${book.title}</h3>
-        <h4>Price in store: ${book.price}$</h4>
+        strHTML +=
+            `<div class="card">
+        <ul class="list-group list-group-flush" >
+          <li class="list-group-item card-img" style="background-image: url(${book.image})"></li>
+          <li class="list-group-item"><h5>${book.title}</h5></li>
+          <li class="list-group-item"><span><span data-trans="read-price"></span> ${formatCurrency(book.price)}</span></li>
+        </ul>
+        <div class="card-footer">
         ${_getReadBtn(book.id)}
         ${_getUpdateBtn(book.id)}
         ${_getDeleteBtn(book.id)}
-        </div>`
+        </div>
+      </div>`
     })
     document.querySelector('.cards').innerHTML = strHTML
 }
 
 function _getReadBtn(bookId) {
-    return `<button class="action read-button" onclick="_onRead('${bookId}')">Read</button>`
+    return `<button class="action read-button" data-trans="read" onclick="_onRead('${bookId}')"></button>`
 }
 
 function _getUpdateBtn(bookId) {
-    return `<button class="action update-button" onclick="_onUpdate('${bookId}')">Update</button>`
+    return `<button class="action update-button" data-trans="update" onclick="_onUpdate('${bookId}')"></button>`
 }
 
 function _getDeleteBtn(bookId) {
-    return `<button class="action delete-button" onclick="_onRemoveBook('${bookId}')">Delete</button>`
+    return `<button class="action delete-button" data-trans="delete" onclick="_onRemoveBook('${bookId}')"></button>`
 }
 
-function readBook(bookId) {
+function readBook(bookId, elModal) {
     let book = getBookById(bookId)
-    let elModal = document.querySelector('.modal')
-    moveModal(elModal)
+    setQueryStringParams(bookId)
+    elModal.innerHTML = `<div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>`
     fetch(book.image)
         .then(response => {
-            doTranslate()
             _setModalRead(book, response.url, elModal)
-            setQueryStringParams(bookId)
+            doTranslate()
         })
 }
 
@@ -74,67 +77,104 @@ function renderLangSelectByQueryString(lang) {
 }
 
 function _setModalRead(book, image, elModal) {
-
     elModal.innerHTML = `
-    <div class="modal-header">
-    <img src="${image}" alt="">
-    <h3>${book.title}</h3>
-    <div class="modal-header-buttons">
-    <button data-trans="btn-close-modal" class="close-modal" onclick="_onCloseModal()"></button>
-    ${renderRating(book)}
-    </div>
-    </div>
-    <h4 data-trans="read-description"></h4>
-    <p data-trans="lorem">
-    </p>
-    <br>
-    Price in store: ${book.price}$ (Special offer discount).
-    `
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <img class="img-fluid" src="${image}" alt="">
+      </div>
+      <div class="modal-body">
+      <h3>${book.title}</h3>
+        
+      <h4 data-trans="read-description"></h4>
+      <p data-trans="lorem">
+      </p>
+      <br>
+      <span><span data-trans="read-price"></span> ${formatCurrency(book.price)}</span>
+      </div>
+        <div class="modal-footer">
+            ${renderRating(book)}
+            <button type="button" class="btn btn-secondary" data-trans="btn-close-modal" data-bs-dismiss="modal" onclick="onCloseModal()"></button>
+        </div>
+      </div>
+    </div>`
 }
 
 function setModalAdd(elModal) {
-    elModal.innerHTML = ` <form onsubmit="_onSubmitBook(event)">
+    elModal.innerHTML = `elModal.innerHTML = 
+    <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" data-trans="add-book-header"></h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="onCloseModal()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+    <form onsubmit="_onSubmitBook(event);">
     <label> Book Title:
-        <input type="text" name="title" placeholder="Book Name">
+        <input type="text" class="form-control" name="title" placeholder="Book Name">
     </label><br>
     <label> Book Price (max. 100$):
-        <input type="number" min="1" max="100" name="price">
+        <input type="number" class="form-control" min="1" max="100" name="price">
     </label><br>
     <label> Book Rating (max. 10):
-        <input type="number" min="0" max="10" name="rating">
+        <input type="number" class="form-control" min="0" max="10" name="rating">
     </label><br>
-    <button>Submit</button>
-</form>`
+    <button class="btn btn-primary" data-trans="btn-add"></button>
+    </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-trans="btn-close-modal" data-bs-dismiss="modal" onclick="onCloseModal()"></button>
+    </div>
+    </div>
+    </div>`
+
 }
 
 function setModalUpdate(elModal, bookId) {
+    let book = getBookById(bookId)
     elModal.innerHTML = `
-    <form onsubmit="_onSubmitUpdate(event, '${bookId}')">
-    <label> Book Title:
-    <input type="text" name="title" placeholder="Book Name">
-        </label><br>
-    <label> Book Price (max. 100$):
-        <input type="number" min="1" max="100" name="price">
-    </label><br>
-    <button>Submit</button>
-</form>`
+    <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 data-trans="update"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                     <form onsubmit="_onSubmitUpdate(event, '${bookId}')" class="needs-validation" novalidate>
+                        <label for="updateName" data-trans="th-title"></label>
+                        <input id="updateName" class="form-control" type="text" name="title" placeholder="${book.title}" required>
+                        
+                        <label for="updatePrice" data-trans="read-price"></label>
+                        <input id="updatePrice" class="form-control" type="number" min="1" max="100" name="price" placeholder="${book.price}" required>
+                        
+                        <button class="btn btn-warning" type="submit" data-bs-dismiss="modal">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-trans="btn-close-modal" data-bs-dismiss="modal"></button>
+                </div>
+            </div>
+        </div>
+`
+
+
 }
 
 function moveModal(elModal) {
     elModal.classList.add('open')
 }
 
-function closeModal() {
-    let elModal = document.querySelector('.modal')
-    elModal.classList.remove('open')
-}
-
 function renderRating(book) {
-    return `<div class="rating">
-    <button class="minus" onclick="onRate('${book.id}', -1)">-</button>
-    <span class="rate">${book.rating}</span>
-    <button class="plus" onclick="onRate('${book.id}', 1)">+</button>
-</div>`
+    return `
+    <div class="rating"><span data-trans="rate-this-book"></span><div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" onclick="onRate('${book.id}', -1)">
+<label class="btn btn-outline-primary" for="btnradio1">-</label>
+<div class="input-group-text" id="btnGroupAddon">${book.rating}</div>
+<input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="onRate('${book.id}', 1)">
+<label class="btn btn-outline-primary" for="btnradio3">+</label>
+</div></div>
+`
+
 }
 
 function setDisplay(isCards) {
@@ -170,12 +210,13 @@ function renderPagination() {
         if (i < 0) continue
 
         let isDisabled = _isDisabled(i, lastPage) ? 'disabled' : ''
-        // todo get value set page idx
+        //  get value set page idx
         strHTML += `<span data-page="${i}" class="${isDisabled}" onclick="onNavigate(this)">${i + 1}</span>`
     }
     strHTML += `<a data-page="${lastPage}" onclick="onNavigate(this)">&raquo;</a>`
     let elNav = document.querySelector('.pagination')
     elNav.innerHTML = strHTML
+
 }
 
 function _isDisabled(page, lastPage) {

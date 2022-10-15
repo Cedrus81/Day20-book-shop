@@ -28,24 +28,44 @@ var gTranslate = {
         esp: 'Añadir',
         he: 'הוסף'
     },
-    'btn-read': {
+    'read': {
         eng: 'Info',
         esp: 'Info',
         he: 'מידע'
     },
-    'btn-update': {
+    'update': {
         eng: 'Update',
         esp: 'Actualizar',
         he: 'עדכן'
     },
-    'btn-delete': {
+    'delete': {
         eng: 'Delete',
         esp: 'Borrar',
-        he: ''
+        he: 'מחק'
+    },
+    language: {
+        eng: 'Language',
+        esp: 'Idioma',
+        he: 'שפה'
+    },
+    'rate-this-book': {
+        eng: 'Rate this Book:',
+        esp: 'Clasifica este libro:',
+        he: 'דרגו את הספר'
+    },
+    'table-display': {
+        eng: 'Table display',
+        esp: 'Exposición de tabla',
+        he: 'תצוגת טבלה'
+    },
+    'cards-display': {
+        eng: 'Cards display',
+        esp: 'Exposición de tarjetas',
+        he: 'תצוגת קלפים'
     },
     'th-title': {
-        eng: 'Title',
-        esp: 'Título',
+        eng: 'Title:',
+        esp: 'Título:',
         he: 'שם'
     },
     'th-price': {
@@ -59,9 +79,9 @@ var gTranslate = {
         he: 'אפשרויות'
     },
     'th-id': {
-        eng: 'Book ID',
+        eng: 'ID',
         esp: 'Código',
-        he: 'קוד ספר'
+        he: 'קוד'
     },
     'btn-close-modal': {
         eng: 'Close',
@@ -88,10 +108,20 @@ var gTranslate = {
         esp: 'Descripción',
         he: 'תיאור'
     },
+    'read-price': {
+        eng: 'Price in retail:',
+        esp: 'Precio de venta al público:',
+        he: 'מחיר לצרכן'
+    },
     'menu-text-filter-placeholder': {
         eng: 'Search',
         esp: 'Bֹúsqueada',
         he: 'חיפוש'
+    },
+    'add-book-header': {
+        eng: 'Add a new Book',
+        esp: 'Añade un nuevo libro',
+        he: 'הוסף ספר חדש'
     }
 }
 
@@ -115,7 +145,22 @@ function doTranslate() {
 
 function getTranslate(key) {
     const transVal = gTranslate[key]
-    if (!transVal) return 'UNKNOWN'
+    if (!transVal) return gTranslate[key].en
 
     return transVal[gCurrLang]
+}
+
+function formatCurrency(bookPrice) {
+    switch (gCurrLang) {
+        case 'he':
+            bookPrice = Math.floor(bookPrice * 3.55)
+            return new Intl.NumberFormat('he-IL', { style: 'currency', currency: 'ILS' }).format(bookPrice)
+
+        case 'esp':
+            return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(bookPrice)
+
+        case 'eng':
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(bookPrice)
+
+    }
 }
