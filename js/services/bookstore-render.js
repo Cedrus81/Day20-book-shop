@@ -142,10 +142,10 @@ function setModalUpdate(elModal, bookId) {
                 <div class="modal-body">
                      <form onsubmit="_onSubmitUpdate(event, '${bookId}')" class="needs-validation" novalidate>
                         <label for="updateName" data-trans="th-title"></label>
-                        <input id="updateName" class="form-control" type="text" name="title" placeholder="${book.title}" required>
+                        <input id="updateName" class="form-control" type="text" name="title" value="${book.title}" required>
                         
                         <label for="updatePrice" data-trans="read-price"></label>
-                        <input id="updatePrice" class="form-control" type="number" min="1" max="100" name="price" placeholder="${book.price}" required>
+                        <input id="updatePrice" class="form-control" type="number" min="1" max="100" name="price" value="${book.price}" required>
                         
                         <button class="btn btn-warning" type="submit" data-bs-dismiss="modal">Submit</button>
                     </form>
