@@ -17,14 +17,14 @@ function renderBooksCards(books) {
     let strHTML = ''
     let page = _getPage(books)
     page.forEach(book => {
+        // <li class="list-group-item card-img" </li>
         strHTML +=
-            `<div class="card">
+            `<div class="card" style="background-image: url(${book.image})">
         <ul class="list-group list-group-flush" >
-          <li class="list-group-item card-img" style="background-image: url(${book.image})"></li>
           <li class="list-group-item"><h5>${book.title}</h5></li>
           <li class="list-group-item"><span><span data-trans="read-price"></span> ${formatCurrency(book.price)}</span></li>
         </ul>
-        <div class="card-footer">
+        <div class="card-footer .actions-tab">
         ${_getReadBtn(book.id)}
         ${_getUpdateBtn(book.id)}
         ${_getDeleteBtn(book.id)}
@@ -204,7 +204,7 @@ function renderPagination() {
     let lastPage = Math.floor(books.length / PAGE_SIZE)
 
     // render btns
-    strHTML = `<a data-page="0" onclick="onNavigate(this)">&laquo;</a>`
+    strHTML = `<a data-page="0" data-trans="pagination-first" onclick="onNavigate(this)">&laquo;</a>`
     for (let i = gPageIndex - 2; i <= gPageIndex + 2; i++) {
         if (i > lastPage) break
         if (i < 0) continue
@@ -213,7 +213,7 @@ function renderPagination() {
         //  get value set page idx
         strHTML += `<span data-page="${i}" class="${isDisabled}" onclick="onNavigate(this)">${i + 1}</span>`
     }
-    strHTML += `<a data-page="${lastPage}" onclick="onNavigate(this)">&raquo;</a>`
+    strHTML += `<a data-page="${lastPage}" data-trans="pagination-last" onclick="onNavigate(this)">&raquo;</a>`
     let elNav = document.querySelector('.pagination')
     elNav.innerHTML = strHTML
 

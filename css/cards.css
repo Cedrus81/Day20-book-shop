@@ -2,15 +2,26 @@
  .cards{
     display: flex;
     flex-wrap: wrap;
-    height: 50vh;
-    width: 90vw;
+    width: 100%;
     justify-content: space-evenly;
+    gap: 1em;
+    max-width: 90vw;
 }
 .card{
-    width: 15vw;
+    box-sizing: border-box;
+    max-width: 10em;
+    min-width: 9em;
+    height: 20em;
+
 }
-.card-img{
-    height: 30vh;
+.list-group >* {
+    background-color: rgba(240, 255, 255, 0);
+}
+
+.list-group-item >*{
+    background-color: #dde0aba9;
+    border-radius: 0.375em;
+    padding: 0.1em;
 }
 .card-footer{
     display: flex;

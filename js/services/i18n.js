@@ -48,6 +48,11 @@ var gTranslate = {
         esp: 'Idioma',
         he: 'שפה'
     },
+    filter: {
+        eng: 'Filter',
+        esp: 'Filtrar',
+        he: 'סנן'
+    },
     'rate-this-book': {
         eng: 'Rate this Book:',
         esp: 'Clasifica este libro:',
@@ -122,7 +127,17 @@ var gTranslate = {
         eng: 'Add a new Book',
         esp: 'Añade un nuevo libro',
         he: 'הוסף ספר חדש'
-    }
+    },
+    'pagination-first': {
+        eng: '\u00ab',
+        esp: '\u00ab',
+        he: '\u00bb'
+    },
+    'pagination-last': {
+        eng: '\u00bb',
+        esp: '\u00bb',
+        he: '\u00ab'
+    },
 }
 
 function setLang(lang) {
@@ -139,7 +154,7 @@ function doTranslate() {
     for (const el of els) {
         const transKey = el.dataset.trans
         el.innerText = getTranslate(transKey)
-        if (el.placeholder) el.placeholder = trans
+        if (el.placeholder) el.placeholder = getTranslate(transKey)
     }
 }
 

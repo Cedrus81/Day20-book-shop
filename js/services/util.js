@@ -80,7 +80,7 @@ function _getBookTitle() {
 }
 
 function getRandomIntFrom1(max = 100) {
-    return Math.ceil(Math.random() * max)
+    return Math.ceil(Math.random() * max) + 9
 }
 
 function getQueryStringParams() {
