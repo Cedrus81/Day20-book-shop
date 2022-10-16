@@ -1,3 +1,8 @@
+var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
+    keyboard: false
+})
+
+
 function renderBooksTable(books) {
     let strHTML = ''
     let page = _getPage(books)
@@ -35,38 +40,50 @@ function renderBooksCards(books) {
 }
 
 function _getReadBtn(bookId) {
-    return `<button class="action read-button" data-trans="read" onclick="_onRead('${bookId}')"></button>`
+    return `<button class="action read-button" data-trans="read" onclick="onRead('${bookId}')"></button>`
 }
 
 function _getUpdateBtn(bookId) {
-    return `<button class="action update-button" data-trans="update" onclick="_onUpdate('${bookId}')"></button>`
+    return `<button class="action update-button" data-trans="update" onclick="onUpdate('${bookId}')"></button>`
 }
 
 function _getDeleteBtn(bookId) {
-    return `<button class="action delete-button" data-trans="delete" onclick="_onRemoveBook('${bookId}')"></button>`
+    return `<button class="action delete-button" data-trans="delete" onclick="onRemoveBook('${bookId}')"></button>`
 }
 
-function readBook(bookId, elModal) {
+function readBook(bookId) {
     let book = getBookById(bookId)
-    setQueryStringParams(bookId)
-    elModal.innerHTML = `<div class="spinner-border" role="status">
+    // setQueryStringParams(bookId)
+    elModal._element.innerHTML = `<div class="spinner-border" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>`
     fetch(book.image)
         .then(response => {
-            _setModalRead(book, response.url, elModal)
+            _setModalRead(book, response.url)
             doTranslate()
         })
 }
 
-function renderFiltersByQueryStringParams(filterBy) {
-    document.querySelector('.price-range').value = filterBy.maxPrice
-    document.querySelector('.rating-range').value = filterBy.minRating
-    document.querySelector('.text-filter').value = filterBy.text
+function renderFilters() {
+    renderPriceRange()
+    renderRateRange()
+    renderTextFilter()
 }
 
-function _setModalRead(book, image, elModal) {
-    elModal.innerHTML = `
+function renderPriceRange() {
+    document.querySelector('.price-range').value = gFilterBy.maxPrice
+}
+
+function renderRateRange() {
+    document.querySelector('.rating-range').value = gFilterBy.minRating
+}
+
+function renderTextFilter() {
+    document.querySelector('.text-filter').value = gFilterBy.text
+}
+
+function _setModalRead(book, image) {
+    elModal._element.innerHTML = `
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -83,19 +100,19 @@ function _setModalRead(book, image, elModal) {
       </div>
         <div class="modal-footer">
             ${renderRating(book)}
-            <button type="button" class="btn btn-secondary" data-trans="btn-close-modal" data-bs-dismiss="modal" onclick="onCloseModal()"></button>
+            <button type="button" class="btn btn-secondary" data-trans="btn-close-modal" data-bs-dismiss="modal"></button>
         </div>
       </div>
     </div>`
 }
 
 function setModalAdd(elModal) {
-    elModal.innerHTML = `elModal.innerHTML = 
+    elModal._element.innerHTML = `
     <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
       <h1 class="modal-title fs-5" data-trans="add-book-header"></h1>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="onCloseModal()" aria-label="Close"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
     <form onsubmit="_onSubmitBook(event);">
@@ -112,16 +129,16 @@ function setModalAdd(elModal) {
     </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-trans="btn-close-modal" data-bs-dismiss="modal" onclick="onCloseModal()"></button>
+      <button type="button" class="btn btn-secondary" data-trans="btn-close-modal" data-bs-dismiss="modal"></button>
     </div>
     </div>
     </div>`
 
 }
 
-function setModalUpdate(elModal, bookId) {
+function setModalUpdate(bookId) {
     let book = getBookById(bookId)
-    elModal.innerHTML = `
+    elModal._element.innerHTML = `
     <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -149,9 +166,25 @@ function setModalUpdate(elModal, bookId) {
 
 }
 
-function moveModal(elModal) {
-    elModal.classList.add('open')
+function setModalDelete(bookId) {
+    elModal._element.innerHTML = `
+    <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 data-trans="delete"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" data-trans="delete-warning">
+                </div>
+                <div class="modal-footer">
+                <button data-trans="no" type="button" class="btn btn-secondary" data-bs-dismiss="modal"></button>
+                <button data-trans="yes" type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="removeBook('${bookId}')"></button>
+                </div>
+            </div>
+        </div>
+    `
 }
+
 
 function renderRating(book) {
     return `

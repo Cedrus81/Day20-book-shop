@@ -90,7 +90,7 @@ function _getPage(books) {
 }
 
 function renderBooks() {
-    // setQueryStringParams()
+    setQueryStringParams()
     let isCards = getQueryStringParams().get('layout') === 'cards' ? true : false
     let books = getBooks()
     if (!isCards) renderBooksTable(books)
@@ -98,7 +98,7 @@ function renderBooks() {
     doTranslate()
 }
 
-function setFilterByQueryStringParams(queryStringParams) {
+function getFilterByQueryStringParams(queryStringParams) {
     const filterBy = {
         maxPrice: queryStringParams.get('maxPrice') || 100,
         minRating: queryStringParams.get('minRating') || 0,
@@ -109,7 +109,7 @@ function setFilterByQueryStringParams(queryStringParams) {
 
 function setLayoutByQueryStringParams(queryStringParams) {
     let layout = queryStringParams.get('layout') || 'table'
-    saveToStorage(LAYOUT_KEY, layout)
+    setDisplay(layout === 'cards')
 }
 
 function sortBooks(method) {

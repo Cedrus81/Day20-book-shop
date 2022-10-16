@@ -8,10 +8,8 @@ function init() {
 }
 
 function onAddBook() {
-    var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
-        keyboard: false
-    })
-    setModalAdd(elModal._element)
+
+    setModalAdd()
     elModal.show()
     doTranslate()
 }
@@ -25,23 +23,12 @@ function _onSubmitBook(event) {
     renderBooks()
 }
 
-function _onRead(bookId) {
+function onRead(bookId) {
     if (!bookId) return
-    var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
-        keyboard: false
-    })
-    readBook(bookId, elModal._element)
-    elModal.show()
-    doTranslate()
-}
 
-function onCloseModal() {
-    event.stopPropagation()
-    var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
-        keyboard: false
-    })
-    elModal.hide()
-    setQueryStringParams()
+    elModal.show()
+    readBook(bookId)
+    doTranslate()
 }
 
 function onRate(bookId, change) {
@@ -50,12 +37,10 @@ function onRate(bookId, change) {
     document.querySelector('.input-group-text').innerHTML = book.rating
 }
 
-function _onUpdate(bookId) {
-    var elModal = new bootstrap.Modal(document.querySelector('#myModal'), {
-        keyboard: false
-    })
-    setModalUpdate(elModal._element, bookId)
+function onUpdate(bookId) {
+
     elModal.show()
+    setModalUpdate(bookId)
     doTranslate()
 }
 
@@ -67,46 +52,46 @@ function _onSubmitUpdate(event, bookId) {
     renderBooks()
 }
 
-function _onRemoveBook(bookId) {
-    removeBook(bookId)
+function onRemoveBook(bookId) {
+    elModal.show()
+    setModalDelete(bookId)
     renderBooks()
 }
 
-function _onFilterByPrice(maxPrice) {
+function onFilterByPrice(maxPrice) {
     setPriceFilter(+maxPrice)
-    renderBooks()
+    renderPriceRange()
 }
 
-function _onFilterByRating(minRating) {
+function onFilterByRating(minRating) {
     setRatingFilter(+minRating)
-    renderBooks()
+    renderRateRange()
 }
 
-function _onSetFilterByTxt(text) {
+function onFilterByTxt(text) {
     setTextFilter(text)
-    renderBooks()
+    renderTextFilter()
 }
 
 function _initByQueryStringParams() {
     const queryStringParams = getQueryStringParams()
     setLayoutByQueryStringParams(queryStringParams)
-    // renderLayoutSwitchByQueryStringParams(queryStringParams)
 
-    gFilterBy = setFilterByQueryStringParams(queryStringParams)
-    renderFiltersByQueryStringParams(gFilterBy)
+    gFilterBy = getFilterByQueryStringParams(queryStringParams)
+    renderFilters()
 
-    _onRead(queryStringParams.get('read'))
+    onRead(queryStringParams.get('read'))
 
     let lang = queryStringParams.get('lang') || 'eng'
     onSetLang(lang)
 }
 
-function _onSwitchDisplay(isCards) {
+function onSwitchDisplay(isCards) {
     setDisplay(isCards) // on services/views.js
     renderBooks()
 }
 
-function _onSortBy(elTd) {
+function onSortBy(elTd) {
     let sortMethod = elTd.getAttribute('data-sort')
     sortMethod = sortBooks(sortMethod)
 
@@ -127,9 +112,8 @@ function onNavigate(elBtn) {
 function onSetLang(lang) {
     if (!lang) return
     setLang(lang)
-    setDirection(lang)
-    renderBooks()
     setQueryStringParams()
+    setDirection(lang)
     doTranslate()
 }
 

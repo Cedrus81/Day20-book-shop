@@ -27,8 +27,8 @@
 .card-footer{
     display: flex;
     justify-content: space-evenly;
-    flex-flow: wrap;
-    
+    flex-flow: column wrap;    
+    height: 100%;
 }
 .card ul{
     padding-inline-start: 0;

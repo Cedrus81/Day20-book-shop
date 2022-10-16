@@ -43,6 +43,21 @@ var gTranslate = {
         esp: 'Borrar',
         he: 'מחק'
     },
+    'yes': {
+        eng: 'yes',
+        esp: 'Sí',
+        he: 'כן'
+    },
+    'no': {
+        eng: 'no',
+        esp: 'no',
+        he: 'לא'
+    },
+    'delete-warning': {
+        eng: 'Are you sure you want to delete this book?',
+        esp: 'Está seguro sobre borrar este libro?',
+        he: '?האם אתם בטוחים שברצונכם למחוק את הספר'
+    },
     language: {
         eng: 'Language',
         esp: 'Idioma',
