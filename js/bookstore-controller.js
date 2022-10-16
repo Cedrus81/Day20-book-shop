@@ -59,18 +59,19 @@ function onRemoveBook(bookId) {
 }
 
 function onFilterByPrice(maxPrice) {
+
     setPriceFilter(+maxPrice)
-    renderPriceRange()
+    renderBooks()
 }
 
 function onFilterByRating(minRating) {
     setRatingFilter(+minRating)
-    renderRateRange()
+    renderBooks()
 }
 
 function onFilterByTxt(text) {
     setTextFilter(text)
-    renderTextFilter()
+    renderBooks()
 }
 
 function _initByQueryStringParams() {
