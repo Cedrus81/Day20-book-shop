@@ -106,7 +106,7 @@ function _setModalRead(book, image) {
     </div>`
 }
 
-function setModalAdd(elModal) {
+function setModalAdd() {
     elModal._element.innerHTML = `
     <div class="modal-dialog">
     <div class="modal-content">
