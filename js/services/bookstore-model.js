@@ -90,7 +90,7 @@ function _getPage(books) {
 }
 
 function renderBooks() {
-    setQueryStringParams()
+    // setQueryStringParams()
     let isCards = getQueryStringParams().get('layout') === 'cards' ? true : false
     let books = getBooks()
     if (!isCards) renderBooksTable(books)
@@ -108,7 +108,7 @@ function setFilterByQueryStringParams(queryStringParams) {
 }
 
 function setLayoutByQueryStringParams(queryStringParams) {
-    let layout = queryStringParams.get('layout')
+    let layout = queryStringParams.get('layout') || 'table'
     saveToStorage(LAYOUT_KEY, layout)
 }
 

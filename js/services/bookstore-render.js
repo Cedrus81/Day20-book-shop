@@ -6,7 +6,7 @@ function renderBooksTable(books) {
             `<tr>
                 <td>${book.id}</td>
                 <td>${book.title}</td>
-                <td>${book.price}</td>
+                <td>${formatCurrency(book.price)}</td>
                 <td colspan ="3"><div class="actions-tab">${_getReadBtn(book.id)}${_getUpdateBtn(book.id)}${_getDeleteBtn(book.id)}</div></td>
             </tr>`
     })
@@ -63,17 +63,6 @@ function renderFiltersByQueryStringParams(filterBy) {
     document.querySelector('.price-range').value = filterBy.maxPrice
     document.querySelector('.rating-range').value = filterBy.minRating
     document.querySelector('.text-filter').value = filterBy.text
-}
-
-function renderLayoutSwitchByQueryStringParams(queryStringParams) {
-    let displaySwitch = document.querySelector('.switch input')
-    if (queryStringParams.get('layout') === 'table') displaySwitch.checked = false
-    else displaySwitch.checked = true
-    setDisplay(displaySwitch.checked)
-}
-
-function renderLangSelectByQueryString(lang) {
-    document.querySelector('.lang-select').value = lang
 }
 
 function _setModalRead(book, image, elModal) {

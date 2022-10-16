@@ -33,6 +33,7 @@ header > * {
 }
 
 .navbar{
+    width: max-content;
     background-color: #9ec0b981;
     max-width: 60%;
 }
@@ -40,6 +41,7 @@ header > * {
 .table {
     opacity: 0.8;
 }
+
 .action {
     padding: 0.5em;
     border-radius: 5px;

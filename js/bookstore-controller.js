@@ -2,7 +2,7 @@
 
 function init() {
     gBooks = loadFromStorage(STORAGE_KEY) || createBooks()
-    // _initByQueryStringParams()
+    _initByQueryStringParams()
     renderPagination()
     renderBooks()
 }
@@ -90,16 +90,15 @@ function _onSetFilterByTxt(text) {
 function _initByQueryStringParams() {
     const queryStringParams = getQueryStringParams()
     setLayoutByQueryStringParams(queryStringParams)
-    renderLayoutSwitchByQueryStringParams(queryStringParams)
+    // renderLayoutSwitchByQueryStringParams(queryStringParams)
 
-    const filterBy = setFilterByQueryStringParams(queryStringParams)
-    renderFiltersByQueryStringParams(filterBy)
-    gFilterBy = filterBy
+    gFilterBy = setFilterByQueryStringParams(queryStringParams)
+    renderFiltersByQueryStringParams(gFilterBy)
+
     _onRead(queryStringParams.get('read'))
 
-    let lang = queryStringParams.get('lang')
+    let lang = queryStringParams.get('lang') || 'eng'
     onSetLang(lang)
-    renderLangSelectByQueryString(lang)
 }
 
 function _onSwitchDisplay(isCards) {
